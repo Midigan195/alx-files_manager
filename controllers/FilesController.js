@@ -38,7 +38,7 @@ class FilesController {
     const { type } = req.body;
 
     const { parentId } = req.body;
-    const { isPublic } = req.body.isPublic || false;
+    const isPublic = req.body.isPublic || false;
 
     const { data } = req.body;
 
@@ -74,7 +74,7 @@ class FilesController {
 	  parentId: parentId || 0,
 	  isPublic,
 	},
-      ).then((result) => res.ststus(202).json({
+      ).then((result) => res.status(201).json({
         id: result.insertedId,
 	userId: user._id,
 	name,
@@ -86,15 +86,14 @@ class FilesController {
       });
     } else {
       const filePath = process.env.FOLDER_PATH || '/tmp/files_manager';
-      const fileN = `${filePth}/${uuidv4()}`;
+      const fileN = `${filePath}/${uuidv4()}`;
 
       const buf = Buffer.from(data, 'base64');
 
       try {
         try {
 	  await fs.mkdir(filePath);
-	} catch (error) {
-	  
+	} catch (error) {	  
 	}
 	await fs.writeFile(fileN, buf, 'utf-8');
       } catch (error) {
@@ -120,11 +119,11 @@ class FilesController {
             parentId: parentId || 0,
           },
         );
-	if (type == 'image') {
+	if (type === 'image') {
 	  fileQueue.add(
             {
 	      userId: user._id,
-	      fileId: result.insertedID,
+	      fileId: result.insertedId,
 	    },
 	  );
 	}
