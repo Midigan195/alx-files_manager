@@ -156,7 +156,10 @@ class FilesController {
     if (!user) {
       return res.status(401).json({ error: 'Unauthorized' });
     }
-    const { parentId, page } = req.query;
+    const {
+      parentId,
+      page,
+    } = req.query;
 
     const pageN = page || 0;
     const files = dbClient.db.collection('files');
@@ -202,7 +205,7 @@ class FilesController {
     const user = await FilesController.getUser(req);
 
     if (!user) {
-      return res.ststus(401).json({ error: 'Unauthorized' });
+      return res.status(401).json({ error: 'Unauthorized' });
     }
     const { id } = req.params;
     const files = dbClient.db.collection('files');
