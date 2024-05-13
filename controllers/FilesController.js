@@ -70,7 +70,7 @@ class FilesController {
         {
 	  userId: user._id,
 	  name,
-	  tyoe,
+	  type,
 	  parentId: parentId || 0,
 	  isPublic,
 	},
@@ -94,6 +94,7 @@ class FilesController {
         try {
 	  await fs.mkdir(filePath);
 	} catch (error) {
+	  
 	}
 	await fs.writeFile(fileN, buf, 'utf-8');
       } catch (error) {
