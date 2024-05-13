@@ -68,7 +68,7 @@ class FilesController {
     if (type === 'folder') {
       files.insertOne(
         {
-	  userId: user._id;
+	  userId: user._id,
 	  name,
 	  tyoe,
 	  parentId: parentId || 0,
@@ -150,7 +150,7 @@ class FilesController {
     return res.status(200).json(file);
   }
 
-  static asynce getIndex(req, res) {
+  static async getIndex(req, res) {
     const user = await FilesController.getUser(req);
 
     if (!user) {
@@ -163,7 +163,7 @@ class FilesController {
 
     let query;
     if (!parentId) {
-      query = { userId = user._id };
+      query = { userId: user._id };
     } else {
       query = { userId: user._id, parentId: ObjectID(parentId) };
     }
